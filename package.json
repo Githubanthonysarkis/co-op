@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node ./server/server.js",
-    "server": "nodemon ./server/server.js"
+    "server": "nodemon ./server/server.js",
+    "client": "npm start --prefix client",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "keywords": [],
   "author": "",
@@ -21,6 +23,7 @@
     "validator": "^13.7.0"
   },
   "devDependencies": {
+    "concurrently": "^7.1.0",
     "nodemon": "^2.0.16"
   }
 }
