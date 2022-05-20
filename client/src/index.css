@@ -343,6 +343,8 @@ dialog::backdrop{
 .group_details > section {
   /* background: green; */
   display: flex;
+  flex-shrink: 0;
+  gap: 10px;
 }
 
 .group_details > h1 {
@@ -361,6 +363,7 @@ dialog::backdrop{
   gap:10px;
   flex: 1;
   min-width: 300px;
+  height: 0%;
 }
 
 .group_details > section > .group_info > .members > span {
@@ -381,6 +384,10 @@ dialog::backdrop{
   cursor: pointer;
   /* text-transform: uppercase; */
 }
+.group_details > section > .group_info > .delete_group:hover {
+  background: rgb(180, 17, 50);
+  border-color: rgb(180, 17, 50)
+}
 
 
 .group_details > .info {
@@ -394,6 +401,44 @@ dialog::backdrop{
   font-size: 1.2rem;
   cursor: pointer;
   display: none;
+}
+.transactions_info > ul {
+  margin:0;
+  margin-top: 40px;
+  list-style: none;
+  display:flex;
+  flex-direction: column;
+  border:1px solid gray;
+  border-bottom-width: 0;
+  padding:0;
+}
+
+.transactions_info > ul > li:nth-child(even){
+  background: #aaa;
+}
+
+.transactions_info > ul > li:nth-child(odd){
+  background: #bbb;
+}
+
+
+.transactions_info > ul > li:hover{
+  background-color: #ddd;
+  padding-inline: 20px;
+}
+
+.transactions_info > ul > li:hover > span{
+  color: var(--primary)
+}
+
+.transactions_info > ul > li {
+  /* border: .5px solid gray; */
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  border-bottom: 1px solid gray;
+  transition: all 250ms;
+  cursor: pointer;
 }
 
 

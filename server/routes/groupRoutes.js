@@ -5,6 +5,7 @@ const {
   getOneGroup,
   addMember,
   getTransactions,
+  getTransaction,
   createTransaction,
   deleteTransaction,
   deleteGroup,
@@ -16,6 +17,9 @@ router.route("/:id").get(getOneGroup).post(addMember).delete(deleteGroup);
 
 router.route("/:id/transactions").get(getTransactions).post(createTransaction);
 
-router.delete("/:id/transactions/:transactionId", deleteTransaction);
+router
+  .route("/:id/transactions/:transactionId")
+  .get(getTransaction)
+  .delete(deleteTransaction);
 
 module.exports = router;

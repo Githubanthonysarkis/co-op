@@ -9,10 +9,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
 import { FaInfoCircle } from "react-icons/fa";
+import TransactionForm from "../components/TransactionForm";
+import TransactionsList from "../components/TransactionsList";
 
 function GroupDetails() {
   const [show, setShow] = useState(false);
   const info = useRef();
+  const modal = useRef();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -46,6 +49,14 @@ function GroupDetails() {
       dispatch(deleteGroup(id));
       navigate("/groups");
     }
+  };
+
+  const handleTransactionModal = () => {
+    modal.current.showModal();
+  };
+
+  const closeModal = () => {
+    modal.current.close();
   };
 
   if (isLoading) {
@@ -86,13 +97,19 @@ function GroupDetails() {
 
             <div className="transactions_info">
               <div className="addGroup">
-                <button title="Add group">+</button>
+                <button
+                  title="Add transaction"
+                  onClick={handleTransactionModal}
+                >
+                  +
+                </button>
               </div>
-              {transactions.map((transaction) => (
-                <p key={transaction._id}>{transaction.name}</p>
-              ))}
+              <TransactionsList transactions={transactions} groupId={id} />
             </div>
           </section>
+          <dialog ref={modal}>
+            <TransactionForm closeModal={closeModal} />
+          </dialog>
         </>
       )}
     </div>

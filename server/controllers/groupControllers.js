@@ -202,12 +202,25 @@ const deleteGroup = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
+const getTransaction = asyncHandler(async (req, res) => {
+  const id = req.params.transactionId;
+  const transaction = await Transaction.findById(id);
+  const author = (await User.findById(transaction.postedBy)).username;
+  res.status(200).json({
+    name: transaction.name,
+    amount: transaction.amount,
+    postedBy: author,
+    createdAt: transaction.createdAt,
+  });
+});
+
 module.exports = {
   getGroups,
   createGroup,
   getOneGroup,
   addMember,
   getTransactions,
+  getTransaction,
   createTransaction,
   deleteTransaction,
   deleteGroup,
