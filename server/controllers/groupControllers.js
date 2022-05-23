@@ -132,7 +132,13 @@ const getTransactions = asyncHandler(async (req, res) => {
     throw new Error("User unauthorized");
   }
 
-  const transactions = await Transaction.find({ group: group._id });
+  let transactions = await Transaction.find({ group: group._id });
+  for (let i = 0; i < transactions.length; i++) {
+    transactions[i] = {
+      ...transactions[i]._doc,
+      postedBy: (await User.findById(transactions[i].postedBy)).username,
+    };
+  }
   res.status(200).json(transactions);
 });
 
@@ -149,7 +155,10 @@ const createTransaction = async (req, res) => {
     (await Group.findById(req.params.id)).save();
 
     if (transaction) {
-      res.status(200).json(transaction);
+      res.status(200).json({
+        ...transaction._doc,
+        postedBy: req.user.username,
+      });
     }
   } catch (err) {
     const errors = handleTransactionError(err);
@@ -202,25 +211,12 @@ const deleteGroup = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
-const getTransaction = asyncHandler(async (req, res) => {
-  const id = req.params.transactionId;
-  const transaction = await Transaction.findById(id);
-  const author = (await User.findById(transaction.postedBy)).username;
-  res.status(200).json({
-    name: transaction.name,
-    amount: transaction.amount,
-    postedBy: author,
-    createdAt: transaction.createdAt,
-  });
-});
-
 module.exports = {
   getGroups,
   createGroup,
   getOneGroup,
   addMember,
   getTransactions,
-  getTransaction,
   createTransaction,
   deleteTransaction,
   deleteGroup,

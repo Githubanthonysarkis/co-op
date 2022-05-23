@@ -89,19 +89,3 @@ export const addTransactionHTTP = async (groupId, transactionData, token) => {
     return response.data;
   }
 };
-
-export const getTransactionHTTP = async (groupId, transactionId, token) => {
-  const config = {
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  };
-  const response = await axios.get(
-    `${API_URL}${groupId}/transactions/${transactionId}`,
-    config
-  );
-
-  if (response.data) {
-    return response.data;
-  }
-};

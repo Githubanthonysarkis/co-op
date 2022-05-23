@@ -1,22 +1,13 @@
-import { useEffect, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
-import Spinner from "./Spinner";
-import { getTransaction } from "../features/groups/currentGroupSlice";
+import { useRef, useState } from "react";
 
 function TransactionsList({ groupId, transactions }) {
-  const dispatch = useDispatch();
-  const { transaction, isLoading, isSuccess } = useSelector(
-    (state) => state.currentGroup
-  );
+  const [transaction, setTransaction] = useState({});
   const modal = useRef();
 
-  const handleClick = (id) => {
-    dispatch(getTransaction({ groupId, transactionId: id }));
+  const handleClick = (transaction) => {
+    setTransaction(transaction);
+    modal.current.showModal();
   };
-
-  if (isLoading) {
-    return <Spinner />;
-  }
 
   return (
     <>
@@ -24,7 +15,7 @@ function TransactionsList({ groupId, transactions }) {
         <ul>
           {transactions.map((transaction) => (
             <li
-              onClick={() => handleClick(transaction._id)}
+              onClick={() => handleClick(transaction)}
               title="Click for details"
               key={transaction._id}
             >
@@ -36,7 +27,9 @@ function TransactionsList({ groupId, transactions }) {
       ) : (
         <p>Transactions will be shown here</p>
       )}
-      <dialog ref={modal}>{transaction.name}</dialog>
+      <dialog ref={modal}>
+        {transaction.name} - {transaction.postedBy}
+      </dialog>
     </>
   );
 }
