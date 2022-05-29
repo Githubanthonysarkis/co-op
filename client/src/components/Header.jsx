@@ -20,7 +20,7 @@ function Header() {
             <>
               <li>
                 <Link to="/groups">
-                  <FaUsers /> My Groups
+                  <FaUsers /> Groups
                 </Link>
               </li>
               <li>
