@@ -54,8 +54,6 @@ function Register() {
     return <Spinner />;
   }
 
-  console.log(process.env);
-
   return (
     <section className="form-container">
       <h1>Register</h1>

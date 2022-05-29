@@ -137,3 +137,17 @@ export const kickMemberHTTP = async (groupId, data, token) => {
     return response.data;
   }
 };
+
+export const leaveGroupHTTP = async (groupId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.get(API_URL + groupId + "/leave", config);
+
+  if (response.data) {
+    return response.data;
+  }
+};

@@ -6,6 +6,7 @@ import {
   deleteGroup,
   addMember,
   kickMember,
+  leaveGroup,
 } from "../features/groups/currentGroupSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
@@ -52,6 +53,16 @@ function GroupDetails() {
     );
     if (confirm) {
       dispatch(deleteGroup(id));
+      navigate("/groups");
+    }
+  };
+
+  const handleLeave = () => {
+    const confirm = window.confirm(
+      "Are you sure you want to leave this group? You will have to contact the admin of the group to rejoin"
+    );
+    if (confirm) {
+      dispatch(leaveGroup(id));
       navigate("/groups");
     }
   };
@@ -132,9 +143,13 @@ function GroupDetails() {
               <span>
                 Created at: {new Date(group.createdAt).toLocaleString("en-GB")}
               </span>
-              {user && user.username === group.createdBy && (
+              {user && user.username === group.createdBy ? (
                 <button className="delete_group" onClick={handleDelete}>
                   Delete group
+                </button>
+              ) : (
+                <button className="delete_group" onClick={handleLeave}>
+                  Leave group
                 </button>
               )}
             </div>

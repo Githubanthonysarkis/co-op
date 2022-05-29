@@ -242,6 +242,27 @@ const kickMember = asyncHandler(async (req, res) => {
   }
 });
 
+const leaveGroup = asyncHandler(async (req, res) => {
+  const group = await Group.findById(req.params.id);
+
+  if (group.members.includes(req.user._id)) {
+    if (group.createdBy.toString() === req.user._id.toString()) {
+      res.status(400);
+      throw new Error("Admins cannot leave their group");
+    }
+    group.members = group.members.filter(
+      (member) => member.toString() !== req.user._id.toString()
+    );
+    group.save();
+    res.status(200).json({
+      username: req.user.username,
+    });
+  } else {
+    res.status(403);
+    throw new Error("You do not belong to this group");
+  }
+});
+
 module.exports = {
   getGroups,
   createGroup,
@@ -252,4 +273,5 @@ module.exports = {
   deleteTransaction,
   deleteGroup,
   kickMember,
+  leaveGroup,
 };

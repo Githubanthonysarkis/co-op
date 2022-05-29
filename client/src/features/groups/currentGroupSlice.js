@@ -7,6 +7,7 @@ import {
   deleteTransactionHTTP,
   addMemberHTTP,
   kickMemberHTTP,
+  leaveGroupHTTP,
 } from "./groupService";
 
 export const getOneGroup = createAsyncThunk(
@@ -136,6 +137,26 @@ export const kickMember = createAsyncThunk(
   }
 );
 
+export const leaveGroup = createAsyncThunk(
+  "groups/leave/one",
+  async (groupId, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      if (token) {
+        return await leaveGroupHTTP(groupId, token);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const initialState = {
   group: {},
   transactions: [],
@@ -251,6 +272,24 @@ export const currentGroupSlice = createSlice({
         );
       })
       .addCase(kickMember.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = payload;
+      })
+
+      .addCase(leaveGroup.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(leaveGroup.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.group.members = state.group.members.filter(
+          (member) => member !== payload.username
+        );
+      })
+      .addCase(leaveGroup.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;
