@@ -53,7 +53,7 @@ function TransactionForm({ closeModal }) {
         <input
           autoFocus
           type="number"
-          placeholder="Positive for incomes, Negative for outcomes"
+          placeholder="Negative for outcomes"
           name="amount"
           id="amount"
           value={formData.amount}

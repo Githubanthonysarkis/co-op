@@ -4,6 +4,9 @@ import {
   deleteGroupHTTP,
   getTransactionsHTTP,
   addTransactionHTTP,
+  deleteTransactionHTTP,
+  addMemberHTTP,
+  kickMemberHTTP,
 } from "./groupService";
 
 export const getOneGroup = createAsyncThunk(
@@ -58,7 +61,6 @@ export const addTransaction = createAsyncThunk(
         return await addTransactionHTTP(groupId, transactionData, token);
       }
     } catch (error) {
-      console.log(error);
       const message =
         (error.response &&
           error.response.data &&
@@ -66,7 +68,69 @@ export const addTransaction = createAsyncThunk(
         error.message ||
         error.toString();
 
-      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const deleteTransaction = createAsyncThunk(
+  "groups/transactions/delete",
+  async ({ groupId, transactionId }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      if (token) {
+        return await deleteTransactionHTTP(groupId, transactionId, token);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const addMember = createAsyncThunk(
+  "groups/members/add",
+  async ({ groupId, formData }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      if (token) {
+        return await addMemberHTTP(groupId, formData, token);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+export const kickMember = createAsyncThunk(
+  "groups/members/kick",
+  async ({ groupId, data }, thunkAPI) => {
+    try {
+      const token = thunkAPI.getState().auth.user.token;
+      if (token) {
+        return await kickMemberHTTP(groupId, data, token);
+      }
+    } catch (error) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
       return thunkAPI.rejectWithValue(message);
     }
   }
@@ -75,7 +139,6 @@ export const addTransaction = createAsyncThunk(
 const initialState = {
   group: {},
   transactions: [],
-  transaction: {},
   isLoading: false,
   isSuccess: false,
   isError: false,
@@ -136,6 +199,58 @@ export const currentGroupSlice = createSlice({
         state.transactions.push(payload);
       })
       .addCase(addTransaction.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = payload;
+      })
+
+      .addCase(deleteTransaction.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteTransaction.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.transactions = state.transactions.filter(
+          (transaction) => transaction._id !== payload.id
+        );
+      })
+      .addCase(deleteTransaction.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = payload;
+      })
+
+      .addCase(addMember.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(addMember.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.group.members.push(payload.username);
+      })
+      .addCase(addMember.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isSuccess = false;
+        state.message = payload;
+      })
+
+      .addCase(kickMember.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(kickMember.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.isError = false;
+        state.isSuccess = true;
+        state.group.members = state.group.members.filter(
+          (member) => member !== payload.username
+        );
+      })
+      .addCase(kickMember.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.isError = true;
         state.isSuccess = false;

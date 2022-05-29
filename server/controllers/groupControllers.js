@@ -114,8 +114,13 @@ const addMember = asyncHandler(async (req, res) => {
   const addedUser = await User.findOne({ username: req.body.username });
 
   if (addedUser) {
-    group.add_member(addedUser._id);
-    res.status(200).json({ username: addedUser.username });
+    if (group.members.includes(addedUser._id)) {
+      res.status(400);
+      throw new Error(`${req.body.username} is already in the group!`);
+    } else {
+      group.add_member(addedUser._id);
+      res.status(200).json({ username: addedUser.username });
+    }
   } else {
     res.status(400);
     throw new Error(`${req.body.username} was not found`);
@@ -197,6 +202,7 @@ const deleteGroup = asyncHandler(async (req, res) => {
   const group = await Group.findById(req.params.id);
 
   if (req.user._id.toString() !== group.createdBy.toString()) {
+    res.status(401);
     throw new Error("Only the admin of the group can delete the group");
   }
 
@@ -211,6 +217,31 @@ const deleteGroup = asyncHandler(async (req, res) => {
   res.status(200).json({ id: req.params.id });
 });
 
+const kickMember = asyncHandler(async (req, res) => {
+  const group = await Group.findById(req.params.id);
+
+  if (req.user._id.toString() !== group.createdBy.toString()) {
+    res.status(401);
+    throw new Error("Only the admin of the group can kick members");
+  }
+
+  const user = await User.findOne({ username: req.body.username });
+
+  if (group.members.includes(user._id)) {
+    for (let i = 0; i < group.members.length; i++) {
+      if (group.members[i].toString() === user._id.toString()) {
+        group.members.splice(i, 1);
+        group.save();
+      }
+    }
+
+    res.status(200).json({ username: user.username });
+  } else {
+    res.status(400);
+    throw new Error("The member you are trying to kick isn't in the group");
+  }
+});
+
 module.exports = {
   getGroups,
   createGroup,
@@ -220,4 +251,5 @@ module.exports = {
   createTransaction,
   deleteTransaction,
   deleteGroup,
+  kickMember,
 };

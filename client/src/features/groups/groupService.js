@@ -89,3 +89,51 @@ export const addTransactionHTTP = async (groupId, transactionData, token) => {
     return response.data;
   }
 };
+
+export const deleteTransactionHTTP = async (groupId, transactionId, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.delete(
+    API_URL + groupId + "/transactions/" + transactionId,
+    config
+  );
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
+export const addMemberHTTP = async (groupId, formData, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const response = await axios.post(API_URL + groupId, formData, config);
+
+  if (response.data) {
+    return response.data;
+  }
+};
+
+export const kickMemberHTTP = async (groupId, data, token) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const response = await axios.post(
+    API_URL + groupId + "/members",
+    data,
+    config
+  );
+
+  if (response.data) {
+    return response.data;
+  }
+};

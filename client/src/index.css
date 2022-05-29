@@ -4,6 +4,7 @@
 
 :root{
   --primary: crimson; 
+  --secondary: #1C2526;
   --group-color: rgba(2, 138, 6, 0.63);
   --germanic-font: Grobe Deutschmeister;
 }
@@ -251,6 +252,9 @@ h1,h2,h3,h4,h5{
    margin:0;
    padding:0;
   }
+  .app {
+    min-height: 100vh;
+  }
 }
 
 .create_group{
@@ -376,13 +380,15 @@ dialog::backdrop{
 }
 
 .group_details > section > .group_info > .delete_group {
-  padding: 5px;
-  border: 1px solid var(--primary);
+  padding: 7px;
+  border: 1px solid var(--secondary);
   outline: none;
-  background: var(--primary);
-  color: white;
+  background: var(--secondary);
+  color: rgb(199, 198, 198);
   cursor: pointer;
-  /* text-transform: uppercase; */
+  transition: 250ms all;
+  font-weight: 500;
+  font-family: poppins;
 }
 .group_details > section > .group_info > .delete_group:hover {
   background: rgb(180, 17, 50);
@@ -441,6 +447,132 @@ dialog::backdrop{
   cursor: pointer;
 }
 
+.transaction_details {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.transaction_details > p {
+  margin: 0;
+  padding: 5px;
+  border-bottom: 1px solid gray;
+  font-family: roboto mono;
+  font-size: .9rem;
+}
+
+.transaction_details > p > b{
+  font-family: sans-serif;
+}
+.transaction_details > .button_container {
+  display: flex;
+  width: 100%;
+  gap: 5px;
+}
+
+.transaction_details > .button_container > button {
+  padding: 10px;
+  border:none;
+  outline: none;
+  text-transform: uppercase;
+  width: max-content;
+  width: 100%;
+}
+
+.transaction_details > .button_container > button.delete {
+  background-color: var(--primary);
+  color: white;
+  cursor: pointer;
+  border: 1px solid var(--primary);
+  font-family: poppins;
+}
+
+.transaction_details > .button_container > button.cancel {
+  background-color: rgb(66, 66, 66);
+  border:1px solid rgb(66,66,66);
+  color: white;
+  cursor: pointer;
+  font-family: poppins;
+}
+
+.transaction_details > .button_container > button.cancel:hover {
+  background-color: rgb(46, 46, 46);
+  border-color: rgb(46,46,46);
+}
+
+.transaction_details > .button_container > button.delete:hover {
+  background-color: rgb(184, 22, 54);
+  border-color: rgb(184, 22, 54);
+}
+
+.add_user_form {
+  display: flex;
+  position: relative
+}
+
+.add_user_form > input {
+  width: 100%;
+  outline: none;
+  border: 1px solid var(--secondary);
+  background-color: #35454B;
+  outline: 1px solid #626D80;
+  transition: 250ms all;
+  border-right: none;
+  padding: 10px;
+  border-radius: 50vw;
+  color: white;
+  box-shadow: 0 0 5px var(--secondary);
+}
+
+
+.add_user_form > button {
+  width: max-content;
+  outline: none;
+  border: 2px solid rgb(2, 166, 84);
+  outline: 1px solid black;
+  padding: 5px;
+  position: absolute;
+  right:0;
+  outline: none;
+  cursor: pointer;
+  background: #aaa;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  aspect-ratio: 1;
+  background: rgb(2, 166, 84);
+  box-shadow: 0 0 5px rgb(2, 166, 84);
+}
+
+span.members > span {
+  display: flex;
+  align-items: center;
+}
+
+.kick {
+  background-color: transparent;
+  cursor: pointer;
+  border:none;
+  outline: none;
+  color: var(--primary);
+  font-size: 1.1rem;
+}
+
+.kick > svg {
+  display: flex;
+  align-items: center;
+}
+
+.not_found {
+  font-family: Poppins;
+  text-align: center;
+  margin-top: 2rem ;
+  color:rgb(46, 46, 46)
+}
+
+/* Mobile responsiveness */
 
 @media (max-width: 1200px) {
   .groups-container{

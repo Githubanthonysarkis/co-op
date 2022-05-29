@@ -5,7 +5,13 @@ function Group({ name, members, role, wallet }) {
       <div className="info">
         <span>Members: {members}</span>
         <span>Role: {role}</span>
-        <span>Wallet: {wallet}</span>
+        <span>
+          Wallet:{" "}
+          {new Intl.NumberFormat("de-DE", {
+            style: "currency",
+            currency: "LBP",
+          }).format(wallet)}
+        </span>
       </div>
     </div>
   );

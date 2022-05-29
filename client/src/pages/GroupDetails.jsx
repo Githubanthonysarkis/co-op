@@ -4,16 +4,21 @@ import {
   reset,
   getOneGroup,
   deleteGroup,
+  addMember,
+  kickMember,
 } from "../features/groups/currentGroupSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
 import { toast } from "react-toastify";
-import { FaInfoCircle } from "react-icons/fa";
+import { FaInfoCircle, FaUserMinus, FaUserPlus } from "react-icons/fa";
 import TransactionForm from "../components/TransactionForm";
 import TransactionsList from "../components/TransactionsList";
 
 function GroupDetails() {
   const [show, setShow] = useState(false);
+  const [formData, setFormData] = useState({
+    username: "",
+  });
   const info = useRef();
   const modal = useRef();
 
@@ -51,6 +56,16 @@ function GroupDetails() {
     }
   };
 
+  const addUser = (e) => {
+    e.preventDefault();
+    dispatch(addMember({ groupId: id, formData }));
+    setFormData({ username: "" });
+  };
+
+  const kick = (member) => {
+    dispatch(kickMember({ groupId: id, data: { username: member } }));
+  };
+
   const handleTransactionModal = () => {
     modal.current.showModal();
   };
@@ -79,10 +94,39 @@ function GroupDetails() {
                   ? "You"
                   : group.createdBy}
               </span>
+              {user && user.username === group.createdBy && (
+                <form className="add_user_form" onSubmit={addUser}>
+                  <input
+                    value={formData.username}
+                    onChange={(e) =>
+                      setFormData({
+                        username: e.target.value,
+                      })
+                    }
+                    type="text"
+                    placeholder="Enter username to add member"
+                  />
+                  <button type="submit">
+                    <FaUserPlus />
+                  </button>
+                </form>
+              )}
               <span className="members">
                 Members:{" "}
                 {group.members.map((member) => (
-                  <span key={member}>{member}</span>
+                  <span style={{ display: "flex" }} key={member}>
+                    {member}&nbsp;&nbsp;
+                    {user &&
+                      user.username === group.createdBy &&
+                      member !== user.username && (
+                        <button
+                          className="kick"
+                          onClick={() => kick(member.toString())}
+                        >
+                          <FaUserMinus />
+                        </button>
+                      )}
+                  </span>
                 ))}
               </span>
               <span>

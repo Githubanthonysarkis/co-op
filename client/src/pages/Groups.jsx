@@ -58,22 +58,24 @@ function Groups() {
         <GroupForm closeModal={closeModal} />
       </dialog>
       <div className="groups-container">
-        {groups.length > 0
-          ? groups.map((group) => (
-              <Link key={group._id} to={`/groups/${group._id}`}>
-                <Group
-                  name={group.name}
-                  members={group.members.length}
-                  wallet={group.wallet}
-                  role={
-                    (user ? user._id : "") === group.createdBy
-                      ? "admin"
-                      : "member"
-                  }
-                />
-              </Link>
-            ))
-          : "You don't belong to any group"}
+        {groups.length > 0 ? (
+          groups.map((group) => (
+            <Link key={group._id} to={`/groups/${group._id}`}>
+              <Group
+                name={group.name}
+                members={group.members.length}
+                wallet={group.wallet}
+                role={
+                  (user ? user._id : "") === group.createdBy
+                    ? "admin"
+                    : "member"
+                }
+              />
+            </Link>
+          ))
+        ) : (
+          <p className="not_found">You don't belong to any group</p>
+        )}
       </div>
     </>
   );
