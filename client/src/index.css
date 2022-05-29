@@ -1,13 +1,14 @@
+@import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
 *{
   box-sizing: border-box;
-  font-family: serif;
+  /* font-family: serif; */
 }
 
 :root{
   --primary: crimson; 
   --secondary: #1C2526;
   --group-color: rgba(2, 138, 6, 0.63);
-  --germanic-font: Grobe Deutschmeister;
+  --germanic-font: Germania One;
 }
 
 body{
