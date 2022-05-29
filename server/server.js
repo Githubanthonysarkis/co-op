@@ -1,3 +1,4 @@
+const path = require("path");
 const express = require("express");
 const { errorHandler } = require("./middlewares/errorMiddleware");
 require("colors");
@@ -32,4 +33,16 @@ app.use(express.urlencoded({ extended: false }));
 
 app.use("/api/user", require("./routes/userRoutes"));
 app.use("/api/groups", protect, require("./routes/groupRoutes"));
+
+// Serve the frontend
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../client/build")));
+
+  app.get("*", (req, res) =>
+    res.sendFile(
+      path.resolve(__dirname, "../", "client", "build", "index.html")
+    )
+  );
+}
+
 app.use(errorHandler);
