@@ -31,7 +31,6 @@ function GroupDetails() {
   );
   const { id } = useParams();
 
-  console.log(group.currency)
 
   useEffect(() => {
     if (!user) {

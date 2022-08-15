@@ -17,7 +17,6 @@ function Groups() {
   const { groups, isLoading, isSuccess, isError, message } = useSelector(
     (store) => store.groups
   );
-  console.log(groups);
 
   useEffect(() => {
     if (isError) {
