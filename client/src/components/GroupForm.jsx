@@ -36,7 +36,10 @@ function GroupForm({ closeModal }) {
       </div>
       <div className="form-group inline">
         <label htmlFor="currency">Currency type</label>
-        <select defaultValue="LBP" onChange={(e) => {setCurrency(e.target.value); console.log(currency)}}>
+        <select
+          defaultValue="LBP"
+          onChange={(e) => setCurrency(e.target.value)}
+        >
           <option value="LBP">LBP</option>
           <option value="USD">USD</option>
         </select>

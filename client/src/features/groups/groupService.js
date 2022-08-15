@@ -23,7 +23,6 @@ export const createGroupHTTP = async (groupData, token) => {
     },
   };
 
-  console.log(groupData)
   const response = await axios.post(API_URL, groupData, config);
 
   if (response.data) {

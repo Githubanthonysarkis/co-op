@@ -79,7 +79,7 @@ export const groupSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.groups.push(payload);
+        state.groups = [...state.groups, payload];
       })
       .addCase(createGroup.rejected, (state, { payload }) => {
         state.isLoading = false;
