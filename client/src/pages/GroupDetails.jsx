@@ -31,6 +31,8 @@ function GroupDetails() {
   );
   const { id } = useParams();
 
+  console.log(group.currency)
+
   useEffect(() => {
     if (!user) {
       navigate("/login");
@@ -163,7 +165,7 @@ function GroupDetails() {
                   +
                 </button>
               </div>
-              <TransactionsList transactions={transactions} groupId={id} />
+              <TransactionsList transactions={transactions} groupId={id} currency={group.currency}/>
             </div>
           </section>
           <dialog ref={modal}>

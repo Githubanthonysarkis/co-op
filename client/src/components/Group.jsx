@@ -1,4 +1,4 @@
-function Group({ name, members, role, wallet }) {
+function Group({ name, members, role, wallet, currency }) {
   return (
     <div className="group">
       <h3>{name}</h3>
@@ -7,9 +7,9 @@ function Group({ name, members, role, wallet }) {
         <span>Role: {role}</span>
         <span>
           Wallet:{" "}
-          {new Intl.NumberFormat("de-DE", {
+          {new Intl.NumberFormat(currency === "LBP" ? "de-DE": "en-US", {
             style: "currency",
-            currency: "LBP",
+            currency,
           }).format(wallet)}
         </span>
       </div>

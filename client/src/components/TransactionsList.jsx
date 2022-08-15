@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import TransactionDetails from "./TransactionDetails";
 
-function TransactionsList({ transactions }) {
+function TransactionsList({ transactions, currency }) {
   const [transaction, setTransaction] = useState({});
   const modal = useRef();
   const handleClick = (transaction) => {
@@ -12,8 +12,8 @@ function TransactionsList({ transactions }) {
   const closeModal = () => {
     modal.current.close();
   };
-
   return (
+  
     <>
       {transactions.length > 0 ? (
         <ul>
@@ -25,9 +25,9 @@ function TransactionsList({ transactions }) {
             >
               <span>{transaction.name}</span>
               <span>
-                {new Intl.NumberFormat("de-DE", {
+                {new Intl.NumberFormat(currency === "LBP" ? "de-DE" : "en-US", {
                   style: "currency",
-                  currency: "LBP",
+                  currency,
                 }).format(transaction.amount)}
               </span>
             </li>
@@ -37,7 +37,7 @@ function TransactionsList({ transactions }) {
         <p className="not_found">Transactions will be shown here</p>
       )}
       <dialog ref={modal}>
-        <TransactionDetails transaction={transaction} closeModal={closeModal} />
+        <TransactionDetails transaction={transaction} closeModal={closeModal} currency={currency}/>
       </dialog>
     </>
   );

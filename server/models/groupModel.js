@@ -17,6 +17,10 @@ const groupSchema = new mongoose.Schema(
       type: [mongoose.Schema.Types.ObjectId],
       ref: "User",
     },
+    currency: {
+      type: String,
+      required: true
+    },
     wallet: {
       type: Number,
       default: 0,

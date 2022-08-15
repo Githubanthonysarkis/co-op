@@ -5,6 +5,7 @@ import Spinner from "./Spinner";
 
 function GroupForm({ closeModal }) {
   const [name, setName] = useState("");
+  const [currency, setCurrency] = useState("LBP");
 
   const { isLoading } = useSelector((state) => state.groups);
 
@@ -12,7 +13,7 @@ function GroupForm({ closeModal }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(createGroup({ name: name.trim() }));
+    dispatch(createGroup({ name: name.trim(), currency }));
   };
 
   if (isLoading) {
@@ -33,8 +34,15 @@ function GroupForm({ closeModal }) {
           onChange={(e) => setName(e.target.value)}
         />
       </div>
+      <div className="form-group inline">
+        <label htmlFor="currency">Currency type</label>
+        <select defaultValue="LBP" onChange={(e) => {setCurrency(e.target.value); console.log(currency)}}>
+          <option value="LBP">LBP</option>
+          <option value="USD">USD</option>
+        </select>
+      </div>
       <div className="button_container">
-        <button type="submit">Create Group</button>
+        <button type="submit">Create</button>
         <button
           type="button"
           className="cancel_button"

@@ -2,7 +2,7 @@ import { deleteTransaction } from "../features/groups/currentGroupSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
-function TransactionDetails({ transaction, closeModal }) {
+function TransactionDetails({ transaction, closeModal, currency }) {
   const { id } = useParams();
   const dispatch = useDispatch();
   const handleDelete = (transactionId) => {
@@ -19,9 +19,9 @@ function TransactionDetails({ transaction, closeModal }) {
       <p>
         Amount:{" "}
         <b>
-          {new Intl.NumberFormat("de-DE", {
+          {new Intl.NumberFormat(currency === "LBP" ? "de-DE": "en-US", {
             style: "currency",
-            currency: "LBP",
+            currency,
           }).format(Math.abs(transaction.amount))}
         </b>
       </p>

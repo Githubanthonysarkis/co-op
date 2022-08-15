@@ -1,8 +1,10 @@
 @import url('https://fonts.googleapis.com/css2?family=Germania+One&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Serif:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
 *{
   box-sizing: border-box;
   /* font-family: Poppins; */
+  /* font-family: 'IBM Plex Serif', serif */
 }
 
 :root{
@@ -26,16 +28,17 @@ body{
 }
 
 .app{
-  background-color: rgba(221, 221, 221, 0.5);
+  background-color: rgb(136, 136, 136, .9);
   box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
   padding:20px;
   min-height:70vh;
   position: relative;
+  position: relative
 }
 
-@supports (backdrop-filter: blur(1rem)){
+@supports (backdrop-filter: blur(12px)){
   .app{
-    backdrop-filter: blur(1rem);
+    backdrop-filter: blur(12px);
     background-color: rgba(221, 221, 221, 0.336);
   }
   body {
@@ -82,7 +85,7 @@ h1,h2,h3,h4,h5{
 }
 
 .header > .logo > a {
-  font-family: IBM Plex Mono;
+  font-family: 'IBM Plex Serif', sans-serif;
   color: var(--primary);
   text-decoration: none;
 }
@@ -116,6 +119,10 @@ h1,h2,h3,h4,h5{
   flex-direction: column;
   width:100%;
   gap:5px;
+}
+
+.form-group.inline{
+  flex-direction: row !important;
 }
 
 .form-container > form > .form-group > input{
@@ -166,7 +173,7 @@ h1,h2,h3,h4,h5{
 }
 
 .spinner-container{
-  position: fixed;
+  position: absolute;
   inset:0;
   background: rgba(0, 0, 0, 0.5);
   display: grid;
@@ -207,14 +214,14 @@ h1,h2,h3,h4,h5{
 .group > h3 {
   text-align: center;
   text-transform: uppercase;
-  font-family: poppins;
+  font-family: 'Poppins', sans-serif;
   word-wrap: break-word;
 } 
 
 .group > .info {
   display: flex;
   flex-direction: column;
-  font-family: roboto mono;
+  font-family: 'roboto mono', monospace;
   font-size: .9rem;
 }
 
@@ -518,10 +525,8 @@ dialog::backdrop{
 
 .add_user_form > input {
   width: 100%;
-  outline: none;
   border: 1px solid var(--secondary);
   background-color: #35454B;
-  outline: 1px solid #626D80;
   transition: 250ms all;
   border-right: none;
   padding: 10px;
@@ -533,15 +538,12 @@ dialog::backdrop{
 
 .add_user_form > button {
   width: max-content;
-  outline: none;
   border: 2px solid rgb(2, 166, 84);
-  outline: 1px solid black;
   padding: 5px;
   position: absolute;
-  right:0;
+  right:-2px;
   outline: none;
   cursor: pointer;
-  background: #aaa;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -572,9 +574,9 @@ span.members > span {
 }
 
 .not_found {
-  font-family: Poppins;
+  font-family: sans-serif;
   text-align: center;
-  margin-top: 2rem ;
+  margin: 2rem auto;
   color:rgb(46, 46, 46)
 }
 

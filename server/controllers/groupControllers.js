@@ -47,10 +47,11 @@ const getGroups = asyncHandler(async (req, res) => {
 
 const createGroup = async (req, res) => {
   try {
-    const { name } = req.body;
+    const { name, currency } = req.body;
 
     const group = await Group.create({
       name,
+      currency: currency || "LBP",
       createdBy: req.user._id,
       members: [req.user._id],
     });

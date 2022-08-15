@@ -17,6 +17,7 @@ function Groups() {
   const { groups, isLoading, isSuccess, isError, message } = useSelector(
     (store) => store.groups
   );
+  console.log(groups);
 
   useEffect(() => {
     if (isError) {
@@ -65,6 +66,7 @@ function Groups() {
                 name={group.name}
                 members={group.members.length}
                 wallet={group.wallet}
+                currency={group.currency}
                 role={
                   (user ? user._id : "") === group.createdBy
                     ? "admin"
