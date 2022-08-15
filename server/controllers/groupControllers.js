@@ -58,7 +58,6 @@ const createGroup = async (req, res) => {
     if (group) {
       res.status(201).json(group);
     } else {
-      console.log("hey?");
       res.status(400);
       throw new Error("An unexpected error occured");
     }
