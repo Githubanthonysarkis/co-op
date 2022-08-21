@@ -9,6 +9,7 @@ import {
   kickMemberHTTP,
   leaveGroupHTTP,
 } from "./groupService";
+import { getGroups } from "./groupSlice";
 
 export const getOneGroup = createAsyncThunk(
   "groups/get/one",
@@ -39,7 +40,9 @@ export const deleteGroup = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token;
       if (token) {
-        return await deleteGroupHTTP(groupId, token);
+        const payload = await deleteGroupHTTP(groupId, token);
+        thunkAPI.dispatch(getGroups());
+        return payload;
       }
     } catch (error) {
       const message =

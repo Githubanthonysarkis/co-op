@@ -1,4 +1,4 @@
-import {BrowserRouter as Router, Routes, Route} from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
@@ -11,8 +11,7 @@ import HomePage from "./pages/HomePage";
 function App() {
   return (
     <>
-      <div className="app">
-        
+      <div className="app glass">
         <Router>
           <Header />
           <Routes>
@@ -23,9 +22,8 @@ function App() {
             <Route path="/groups/:id" element={<GroupDetails />} />
           </Routes>
         </Router>
-
       </div>
-      
+
       <ToastContainer />
     </>
   );

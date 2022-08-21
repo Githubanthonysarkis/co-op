@@ -28,22 +28,23 @@ body{
 }
 
 .app{
-  background-color: rgb(136, 136, 136, .9);
-  box-shadow: 0 0 10px 5px rgba(0, 0, 0, 0.3);
+  background-color: rgb(255, 255, 255, 0.4);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   padding:20px;
   min-height:70vh;
   position: relative;
-  position: relative
+  border: 1px solid rgba(255,255,255,0.2);
+  -webkit-backdrop-filter: blur(30px) saturate(125%);
+  border-radius: 10px;
 }
 
-@supports (backdrop-filter: blur(12px)){
+@supports (backdrop-filter: blur(30px)){
   .app{
-    backdrop-filter: blur(12px);
-    background-color: rgba(221, 221, 221, 0.336);
+    backdrop-filter: blur(30px) saturate(125%);
   }
-  body {
+  /* body {
     background-color: rgb(177, 177, 177);
-  }
+  } */
 }
 
 h1,h2,h3,h4,h5{
@@ -269,6 +270,7 @@ h1,h2,h3,h4,h5{
   }
   .app {
     min-height: 100vh;
+    border-radius:0;
   }
 }
 
@@ -336,7 +338,8 @@ h1,h2,h3,h4,h5{
 
 dialog{
   border: none;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+  background-color: rgba(255, 255, 255, 0.5);
   width: 300px;
 }
 
@@ -578,7 +581,7 @@ span.members > span {
 
 .not_found {
   font-family: sans-serif;
-  text-align: center;
+  grid-column: 1/-1;
   margin: 2rem auto;
   color:rgb(46, 46, 46)
 }
