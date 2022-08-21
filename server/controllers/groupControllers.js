@@ -200,19 +200,20 @@ const deleteTransaction = asyncHandler(async (req, res) => {
 
 const deleteGroup = asyncHandler(async (req, res) => {
   const group = await Group.findById(req.params.id);
+  const { _id: id } = group;
 
   if (req.user._id.toString() !== group.createdBy.toString()) {
     res.status(401);
     throw new Error("Only the admin of the group can delete the group");
   }
 
-  const transactions = await Transaction.find({ group: group._id });
+  await group.remove();
+
+  const transactions = await Transaction.find({ group: id });
 
   transactions.forEach(async (transaction) => {
     await transaction.remove();
   });
-
-  await group.remove();
 
   res.status(200).json({ id: req.params.id });
 });
