@@ -13,7 +13,6 @@ function TransactionsList({ transactions, currency }) {
     modal.current.close();
   };
   return (
-  
     <>
       {transactions.length > 0 ? (
         <ul>
@@ -34,10 +33,14 @@ function TransactionsList({ transactions, currency }) {
           ))}
         </ul>
       ) : (
-        <p className="not_found">Transactions will be shown here</p>
+        <p className="not_found center">Transactions will be shown here</p>
       )}
       <dialog ref={modal}>
-        <TransactionDetails transaction={transaction} closeModal={closeModal} currency={currency}/>
+        <TransactionDetails
+          transaction={transaction}
+          closeModal={closeModal}
+          currency={currency}
+        />
       </dialog>
     </>
   );

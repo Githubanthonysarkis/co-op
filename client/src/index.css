@@ -9,8 +9,9 @@
 
 :root{
   --primary: crimson; 
+  --primary-hover: rgb(153, 21, 47);
   --secondary: #1C2526;
-  --group-color: rgba(2, 138, 6, 0.63);
+  /* --group-color: rgba(2, 138, 6, 0.63); */
   --germanic-font: Germania One;
 }
 
@@ -25,6 +26,10 @@ body{
   background-repeat: no-repeat;
   background-size: cover;
   min-height: 100vh;
+}
+
+button {
+  transition: 200ms all;
 }
 
 .app{
@@ -86,9 +91,10 @@ h1,h2,h3,h4,h5{
 }
 
 .header > .logo > a {
-  font-family: 'IBM Plex Serif', sans-serif;
+  font-family: 'IBM Plex Serif', serif;
   color: var(--primary);
   text-decoration: none;
+  text-shadow:0 0 5px white; 
 }
 
 .form-container{
@@ -98,9 +104,21 @@ h1,h2,h3,h4,h5{
   justify-content: center;
   min-height:70vh;
   gap: 2rem;
-  background-color: white;
+  border-radius: 5px;
+  background-color: rgba(255, 255, 255, 0.466);
   box-shadow: 0 10px 10px 10px rgba(0, 0, 0, 0.3);
   padding-block:20px;
+  position: relative;
+}
+
+.form-container::after {
+  content: "";
+  background-image: url(./assets/wave.svg);
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-repeat: no-repeat;
+  z-index: -1;
 }
 
 .form-container > h1 {
@@ -151,11 +169,12 @@ h1,h2,h3,h4,h5{
   border: 1px solid var(--primary);
   font-family: Poppins;
   cursor: pointer;
+  transition: 200ms all;
 }
 
 .form-container > form > button[type='submit']:hover{
-  background-color: rgb(184, 22, 54);
-  border-color: rgb(184, 22, 54);
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 .form-container > form > p{
@@ -212,6 +231,7 @@ h1,h2,h3,h4,h5{
   cursor: pointer;
   transition: all 300ms;
   max-width: 80vw;
+  position: relative;
 }
 
 .group > h3 {
@@ -228,10 +248,23 @@ h1,h2,h3,h4,h5{
   font-size: .9rem;
 }
 
+.group::before {
+  content: "";
+  box-shadow: -10px 10px var(--primary);
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transition: 200ms all;
+}
+
 .group:hover{
   background-color: white;
-  box-shadow: -10px 10px var(--primary);
-  transform: translate(5px, -5px);
+  transform: translate(2px, -2px);
+}
+
+.group:hover::before {
+  transform: translate(-2px, 2px);
+  opacity: 1;
 }
 
 .group:hover > h3 {
@@ -323,8 +356,8 @@ h1,h2,h3,h4,h5{
 }
 
 .create_group > .button_container > button:hover{
-  background-color: rgb(184, 22, 54);
-  border-color: rgb(184, 22, 54);
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 .create_group > .button_container > .cancel_button{
@@ -337,10 +370,11 @@ h1,h2,h3,h4,h5{
 }
 
 dialog{
-  border: none;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
   background-color: rgba(255, 255, 255, 0.5);
   width: 300px;
+  border-radius: 5px;
 }
 
 dialog::backdrop{
@@ -377,7 +411,7 @@ dialog::backdrop{
 
 .group_details > section > .group_info{
   /* background: red; */
-  background: #aaa;
+  background: rgba(170, 170, 170, 0.5);
   border: 1px solid gray;
   padding: 10px;
   display: flex;
@@ -385,6 +419,7 @@ dialog::backdrop{
   gap:10px;
   flex: 1;
   min-width: 300px;
+  border-radius: 5px;
   height: 0%;
 }
 
@@ -409,8 +444,8 @@ dialog::backdrop{
   font-family: poppins;
 }
 .group_details > section > .group_info > .delete_group:hover {
-  background: rgb(180, 17, 50);
-  border-color: rgb(180, 17, 50)
+  background: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 
@@ -519,45 +554,47 @@ dialog::backdrop{
 }
 
 .transaction_details > .button_container > button.delete:hover {
-  background-color: rgb(184, 22, 54);
-  border-color: rgb(184, 22, 54);
+  background-color: var(--primary-hover);
+  border-color: var(--primary-hover);
 }
 
 .add_user_form {
   display: flex;
-  position: relative
+  position: relative;
+  height: 40px;
 }
 
 .add_user_form > input {
-  width: 100%;
-  border: 1px solid var(--secondary);
-  background-color: #35454B;
   transition: 250ms all;
   border-right: none;
   padding: 10px;
-  border-radius: 50vw;
+  outline: none;
+  border: 1px solid #1c252662;
+  background-color: #1c2526ad;
+  border-right: none;
+  flex: 10;
   color: white;
-  box-shadow: 0 0 5px var(--secondary);
 }
 
 
 .add_user_form > button {
-  width: max-content;
-  border: 2px solid rgb(2, 166, 84);
   padding: 5px;
-  position: absolute;
-  right:-2px;
-  top: 0px;
   outline: none;
+  border: 1px solid #1c252662;
+  border-left: none;
   cursor: pointer;
-  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.5rem;
   aspect-ratio: 1;
-  background: rgb(2, 166, 84);
-  box-shadow: 0 0 5px rgb(2, 166, 84);
+  flex: 1;
+  background: #1c2526ad;
+  color: rgba(255, 255, 255, 0.432);
+}
+
+.add_user_form > button:hover {
+  color: white;
 }
 
 span.members > span {
@@ -586,7 +623,17 @@ span.members > span {
   color:rgb(46, 46, 46)
 }
 
+.not_found.center {
+  text-align: center;
+}
+
 /* Mobile responsiveness */
+
+@media(max-width: 500px) {
+  .form-container::after {
+    background-position: center;
+  }
+}
 
 @media (max-width: 1200px) {
   .groups-container{
