@@ -1,16 +1,26 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 import Header from "./components/Header";
 import GroupDetails from "./pages/GroupDetails";
 import Groups from "./pages/Groups";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import HomePage from "./pages/HomePage";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   return (
     <>
+      <Toaster
+        position="top-center"
+        toastOptions={{
+          classname: "",
+          style: {
+            fontFamily: "sans-serif",
+            fontWeight: 700,
+            fontSize: "14px",
+          },
+        }}
+      />
       <div className="app glass">
         <Router>
           <Header />
@@ -23,8 +33,6 @@ function App() {
           </Routes>
         </Router>
       </div>
-
-      <ToastContainer />
     </>
   );
 }

@@ -10,7 +10,7 @@ import {
 } from "../features/groups/currentGroupSlice";
 import { useNavigate, useParams } from "react-router-dom";
 import Spinner from "../components/Spinner";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import { FaInfoCircle, FaUserMinus, FaUserPlus } from "react-icons/fa";
 import TransactionForm from "../components/TransactionForm";
 import TransactionsList from "../components/TransactionsList";
@@ -30,7 +30,6 @@ function GroupDetails() {
     (state) => state.currentGroup
   );
   const { id } = useParams();
-
 
   useEffect(() => {
     if (!user) {
@@ -164,7 +163,11 @@ function GroupDetails() {
                   +
                 </button>
               </div>
-              <TransactionsList transactions={transactions} groupId={id} currency={group.currency}/>
+              <TransactionsList
+                transactions={transactions}
+                groupId={id}
+                currency={group.currency}
+              />
             </div>
           </section>
           <dialog ref={modal}>

@@ -2,7 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { reset, getGroups } from "../features/groups/groupSlice";
-import { toast } from "react-toastify";
+import toast from "react-hot-toast";
 import Spinner from "../components/Spinner";
 import Group from "../components/Group";
 import GroupForm from "../components/GroupForm";
