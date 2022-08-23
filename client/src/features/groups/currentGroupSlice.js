@@ -146,7 +146,9 @@ export const leaveGroup = createAsyncThunk(
     try {
       const token = thunkAPI.getState().auth.user.token;
       if (token) {
-        return await leaveGroupHTTP(groupId, token);
+        const payload = await leaveGroupHTTP(groupId, token);
+        thunkAPI.dispatch(getGroups());
+        return payload;
       }
     } catch (error) {
       const message =
