@@ -49,10 +49,8 @@ function Groups() {
 
   return (
     <>
-      <div className="addGroup">
-        <button title="Add group" onClick={handleAdd}>
-          +
-        </button>
+      <div title="Create group" className="addGroup" onClick={() => modal.current.showModal()}>
+        <i className="fa-solid fa-circle-plus"></i>
       </div>
       <dialog ref={modal}>
         <GroupForm closeModal={closeModal} />

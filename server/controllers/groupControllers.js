@@ -75,6 +75,11 @@ const createGroup = async (req, res) => {
 const getOneGroup = asyncHandler(async (req, res) => {
   let group = await Group.findById(req.params.id);
 
+  if (!group) {
+    res.status(404);
+    throw new Error("That group does not exist");
+  }
+
   if (!group.members.includes(req.user._id)) {
     res.status(403);
     throw new Error("User unauthorized");
@@ -137,7 +142,7 @@ const getTransactions = asyncHandler(async (req, res) => {
     throw new Error("User unauthorized");
   }
 
-  let transactions = await Transaction.find({ group: group._id });
+  let transactions = await Transaction.find({ group: group._id }).sort({createdAt: -1});
   for (let i = 0; i < transactions.length; i++) {
     transactions[i] = {
       ...transactions[i]._doc,

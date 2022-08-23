@@ -39,6 +39,7 @@ function GroupDetails() {
     if (isError) {
       message !== "Cannot read properties of null (reading 'token')" &&
         toast.error(message);
+      navigate("/groups");
     }
 
     dispatch(getOneGroup(id));
@@ -155,13 +156,8 @@ function GroupDetails() {
             </div>
 
             <div className="transactions_info">
-              <div className="addGroup">
-                <button
-                  title="Add transaction"
-                  onClick={handleTransactionModal}
-                >
-                  +
-                </button>
+              <div className="addGroup" onClick={() => modal.current.showModal()}>
+                <i className="fa-solid fa-circle-plus"></i>
               </div>
               <TransactionsList
                 transactions={transactions}

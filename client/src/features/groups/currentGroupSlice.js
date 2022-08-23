@@ -220,7 +220,7 @@ export const currentGroupSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.transactions.push(payload);
+        state.transactions = [payload, ...state.transactions];
       })
       .addCase(addTransaction.rejected, (state, { payload }) => {
         state.isLoading = false;
