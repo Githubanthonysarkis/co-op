@@ -15,7 +15,7 @@ export const getOneGroup = createAsyncThunk(
   "groups/get/one",
   async (groupId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         return {
           current: await getOneGroupHTTP(groupId, token),
@@ -38,7 +38,7 @@ export const deleteGroup = createAsyncThunk(
   "groups/delete/one",
   async (groupId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         const payload = await deleteGroupHTTP(groupId, token);
         thunkAPI.dispatch(getGroups());
@@ -60,7 +60,7 @@ export const addTransaction = createAsyncThunk(
   "groups/transactions/add",
   async ({ groupId, transactionData }, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         return await addTransactionHTTP(groupId, transactionData, token);
       }
@@ -81,7 +81,7 @@ export const deleteTransaction = createAsyncThunk(
   "groups/transactions/delete",
   async ({ groupId, transactionId }, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         return await deleteTransactionHTTP(groupId, transactionId, token);
       }
@@ -102,7 +102,7 @@ export const addMember = createAsyncThunk(
   "groups/members/add",
   async ({ groupId, formData }, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         return await addMemberHTTP(groupId, formData, token);
       }
@@ -123,7 +123,7 @@ export const kickMember = createAsyncThunk(
   "groups/members/kick",
   async ({ groupId, data }, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         return await kickMemberHTTP(groupId, data, token);
       }
@@ -144,7 +144,7 @@ export const leaveGroup = createAsyncThunk(
   "groups/leave/one",
   async (groupId, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         const payload = await leaveGroupHTTP(groupId, token);
         thunkAPI.dispatch(getGroups());
@@ -188,8 +188,8 @@ export const currentGroupSlice = createSlice({
         state.isLoading = false;
         state.isError = false;
         state.isSuccess = true;
-        state.transactions = payload.current_transactions;
-        state.group = payload.current;
+        state.transactions = payload?.current_transactions;
+        state.group = payload?.current;
       })
       .addCase(getOneGroup.rejected, (state, { payload }) => {
         state.isLoading = false;

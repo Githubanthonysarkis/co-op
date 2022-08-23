@@ -28,7 +28,7 @@ export const createGroup = createAsyncThunk(
   "groups/create",
   async (groupData, thunkAPI) => {
     try {
-      const token = thunkAPI.getState().auth.user.token;
+      const token = thunkAPI.getState().auth.user?.token;
       if (token) {
         return await createGroupHTTP(groupData, token);
       }

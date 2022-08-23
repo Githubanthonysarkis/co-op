@@ -20,8 +20,7 @@ function Groups() {
 
   useEffect(() => {
     if (isError) {
-      message !== "Cannot read properties of null (reading 'token')" &&
-        toast.error(message);
+      message !== "Cannot read properties of null (reading 'token')" && toast.error(message);
     }
 
     if (!user) {

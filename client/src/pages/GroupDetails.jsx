@@ -37,8 +37,7 @@ function GroupDetails() {
     }
 
     if (isError) {
-      message !== "Cannot read properties of null (reading 'token')" &&
-        toast.error(message);
+      message !== "Cannot read properties of null (reading 'token')" && toast.error(message);
       navigate("/groups");
     }
 
@@ -95,7 +94,7 @@ function GroupDetails() {
       <button onClick={() => setShow(!show)} className="info">
         <FaInfoCircle />
       </button>
-      {Object.keys(group).length > 0 && (
+      {group && Object.keys(group).length > 0 && (
         <>
           <h1>{group && group.name}</h1>
           <section>
