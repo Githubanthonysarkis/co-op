@@ -37,8 +37,21 @@ function GroupDetails() {
     }
 
     if (isError) {
-      message !== "Cannot read properties of null (reading 'token')" && toast.error(message);
-      navigate("/groups");
+      switch(message.toString()) {
+        case "Cannot read properties of null (reading 'token')":
+          break;
+        case "That group does not exist":
+          toast.error(message);
+          navigate("/groups");
+          break;
+        case "User unauthorized":
+          toast.error(message);
+          navigate("/groups");
+          break;
+        default:
+          toast.error(message);
+
+      }
     }
 
     dispatch(getOneGroup(id));
