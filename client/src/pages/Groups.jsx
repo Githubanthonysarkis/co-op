@@ -20,7 +20,8 @@ function Groups() {
 
   useEffect(() => {
     if (isError) {
-      message !== "Cannot read properties of null (reading 'token')" && toast.error(message);
+      message !== "Cannot read properties of null (reading 'token')" &&
+        toast.error(message);
     }
 
     if (!user) {
@@ -38,17 +39,17 @@ function Groups() {
     return <Spinner />;
   }
 
-  const handleAdd = () => {
-    modal.current.showModal();
-  };
-
   const closeModal = () => {
     modal.current.close();
   };
 
   return (
     <>
-      <div title="Create group" className="addGroup" onClick={() => modal.current.showModal()}>
+      <div
+        title="Create group"
+        className="addGroup"
+        onClick={() => modal.current.showModal()}
+      >
         <i className="fa-solid fa-circle-plus"></i>
       </div>
       <dialog ref={modal}>

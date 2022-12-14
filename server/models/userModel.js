@@ -27,6 +27,10 @@ const userSchema = new mongoose.Schema(
       required: [true, "Please enter a password"],
       minlength: [6, "Minimum password characters is 6"],
     },
+    groups: {
+      type: [mongoose.Schema.Types.ObjectId],
+      default: [],
+    },
     isHashed: {
       type: Boolean,
       default: false,
