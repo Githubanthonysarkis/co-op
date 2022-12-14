@@ -37,7 +37,7 @@ function GroupDetails() {
     }
 
     if (isError) {
-      switch(message.toString()) {
+      switch (message.toString()) {
         case "Cannot read properties of null (reading 'token')":
           break;
         case "That group does not exist":
@@ -50,7 +50,6 @@ function GroupDetails() {
           break;
         default:
           toast.error(message);
-
       }
     }
 
@@ -82,16 +81,16 @@ function GroupDetails() {
 
   const addUser = (e) => {
     e.preventDefault();
+    if (formData.username.trim().length === 0) {
+      toast.error("Please select who you want to add");
+      return;
+    }
     dispatch(addMember({ groupId: id, formData }));
     setFormData({ username: "" });
   };
 
   const kick = (member) => {
     dispatch(kickMember({ groupId: id, data: { username: member } }));
-  };
-
-  const handleTransactionModal = () => {
-    modal.current.showModal();
   };
 
   const closeModal = () => {
@@ -168,7 +167,10 @@ function GroupDetails() {
             </div>
 
             <div className="transactions_info">
-              <div className="addGroup" onClick={() => modal.current.showModal()}>
+              <div
+                className="addGroup"
+                onClick={() => modal.current.showModal()}
+              >
                 <i className="fa-solid fa-circle-plus"></i>
               </div>
               <TransactionsList
