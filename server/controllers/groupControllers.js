@@ -4,13 +4,13 @@ const Transaction = require("../models/transactionModel");
 const User = require("../models/userModel");
 
 const handleGroupError = (err) => {
+  // For formatting
   let error;
   if (err.message.includes("Group validation failed")) {
     Object.values(err.errors).forEach(({ properties }) => {
       error = properties.message;
     });
   }
-
   return error;
 };
 
@@ -32,10 +32,13 @@ const handleTransactionError = (err) => {
 // Get groups
 
 const getGroups = asyncHandler(async (req, res) => {
+  // Get the user id
   const user = await User.findById(req.user._id);
   if (!user) {
     throw new Error("Authorization error");
   }
+
+  // Get groups in which the user is a participant
   let groups = [];
   for (let i = 0; i < user.groups.length; i++) {
     const group = await Group.findById(user.groups[i]);
@@ -49,10 +52,12 @@ const getGroups = asyncHandler(async (req, res) => {
 });
 
 // Create groups
-
 const createGroup = async (req, res) => {
   try {
+    // Get group settings from the request body and create a new group with these settings
     const { name, currency } = req.body;
+
+    // Get the user id from the request to make the current user an admin
     const user = await User.findById(req.user._id);
 
     const group = await Group.create({
@@ -81,6 +86,7 @@ const createGroup = async (req, res) => {
 
 // Get one group
 const getOneGroup = asyncHandler(async (req, res) => {
+  // Find group in database according to the request
   let group = await Group.findById(req.params.id);
 
   if (!group) {
@@ -88,11 +94,13 @@ const getOneGroup = asyncHandler(async (req, res) => {
     throw new Error("That group does not exist");
   }
 
+  // If the current user is not a participant in the group throw error
   if (!group.members.includes(req.user._id)) {
     res.status(403);
     throw new Error("User unauthorized");
   }
 
+  // Mutate the response as to send the users' usernames rather than their id
   group = {
     ...group._doc,
     admin: (await User.findById(group.createdBy)).username,
@@ -113,8 +121,10 @@ const getOneGroup = asyncHandler(async (req, res) => {
 
 // Add member
 const addMember = asyncHandler(async (req, res) => {
+  // Get the group by its id
   const group = await Group.findById(req.params.id);
 
+  // If user is not admin throw error
   if (group.createdBy.toString() !== req.user._id.toString()) {
     res.status(403);
     throw new Error("User unauthorized, only admin can add members");
@@ -131,6 +141,7 @@ const addMember = asyncHandler(async (req, res) => {
       res.status(400);
       throw new Error(`${req.body.username} is already in the group!`);
     } else {
+      // Add the user to the group
       group.add_member(addedUser._id);
       addedUser.groups.push(group._id);
       await addedUser.save();
@@ -152,9 +163,13 @@ const getTransactions = asyncHandler(async (req, res) => {
     throw new Error("User unauthorized");
   }
 
+  // Given the group's id, get all the transactions
+
   let transactions = await Transaction.find({ group: group._id }).sort({
     createdAt: -1,
   });
+
+  // Mutate the response to include the user's username rather than his id
   for (let i = 0; i < transactions.length; i++) {
     transactions[i] = {
       ...transactions[i]._doc,
@@ -174,6 +189,7 @@ const createTransaction = async (req, res) => {
       postedBy: req.user._id,
     });
 
+    // To recalculate group's wallet
     (await Group.findById(req.params.id)).save();
 
     if (transaction) {
@@ -210,6 +226,7 @@ const deleteTransaction = asyncHandler(async (req, res) => {
 
   await Transaction.findByIdAndDelete(transactionId);
 
+  // To recalculate group's wallet
   (await Group.findById(req.params.id)).save();
 
   res.status(200).json({ id: transactionId });
@@ -228,6 +245,7 @@ const deleteGroup = asyncHandler(async (req, res) => {
     let user = await User.findById(group.members[i]);
     for (let j = 0; j < user.groups.length; j++) {
       if (user.groups[j].toString() === id.toString()) {
+        // Remove the group from the individual group's array of every member
         user.groups.splice(j, 1);
       }
     }
@@ -240,6 +258,7 @@ const deleteGroup = asyncHandler(async (req, res) => {
 
   await group.remove();
 
+  // Remove all transactions from the deleted group
   const transactions = await Transaction.find({ group: id });
 
   transactions.forEach(async (transaction) => {
@@ -263,12 +282,14 @@ const kickMember = asyncHandler(async (req, res) => {
     for (let i = 0; i < group.members.length; i++) {
       if (group.members[i].toString() === user._id.toString()) {
         group.members.splice(i, 1);
+        // Remove the user from the group's member array...
         group.save();
       }
     }
 
     for (let i = 0; i < user.groups.length; i++) {
       if (user.groups[i].toString() === group._id.toString()) {
+        // ... and remove the group from the user's groups array
         user.groups.splice(i, 1);
       }
     }
@@ -292,6 +313,8 @@ const leaveGroup = asyncHandler(async (req, res) => {
   if (group.members.includes(req.user._id)) {
     if (group.createdBy.toString() === req.user._id.toString()) {
       res.status(400);
+      // For now, admins cannot leave the group.
+      // TODO: When admin leaves make the oldest member of the group the admin
       throw new Error("Admins cannot leave their group");
     }
     group.members = group.members.filter(

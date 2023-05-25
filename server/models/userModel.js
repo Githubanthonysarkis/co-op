@@ -39,6 +39,7 @@ const userSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// If the password is not hashed, hash it
 userSchema.pre("save", async function () {
   if (!this.isHashed) {
     const salt = await bcrypt.genSalt(10);

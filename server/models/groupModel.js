@@ -19,7 +19,7 @@ const groupSchema = new mongoose.Schema(
     },
     currency: {
       type: String,
-      required: true
+      required: true,
     },
     wallet: {
       type: Number,
@@ -29,6 +29,7 @@ const groupSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
+// Recalculate the wallet total after every update of instance
 groupSchema.pre("save", async function () {
   let total = 0;
   const transactions = await Transaction.find({ group: this._id });
