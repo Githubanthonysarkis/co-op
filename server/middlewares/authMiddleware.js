@@ -4,13 +4,15 @@ const jwt = require("jsonwebtoken");
 
 const protect = asyncHandler(async (req, res, next) => {
   // Check for token
-
   if (req.headers.authorization) {
     const token = req.headers.authorization.split(" ")[1]; // Bearer token
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
     if (decoded) {
+      // Find user according to token
       const user = await User.findById(decoded.id);
+
       if (user) {
+        // Save the user and send it with every request
         req.user = user;
         next();
       } else {
