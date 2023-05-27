@@ -5,6 +5,7 @@ import { reset, register } from "../features/auth/authSlice";
 import toast from "react-hot-toast";
 import Spinner from "../components/Spinner";
 
+// register page
 function Register() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

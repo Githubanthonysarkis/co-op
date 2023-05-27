@@ -3,6 +3,7 @@ import axios from "axios";
 const API_URL = "/api/groups/";
 
 export const getGroupsHTTP = async (token) => {
+  // send Bearer token in request header
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,

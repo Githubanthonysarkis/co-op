@@ -7,6 +7,7 @@ import Spinner from "../components/Spinner";
 import Group from "../components/Group";
 import GroupForm from "../components/GroupForm";
 
+// this is the homepage (displays all groups that the user belongs to)
 function Groups() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

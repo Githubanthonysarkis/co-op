@@ -3,6 +3,7 @@ import { FaUser, FaSignInAlt, FaSignOutAlt, FaUsers } from "react-icons/fa";
 import { useSelector, useDispatch } from "react-redux";
 import { logout } from "../features/auth/authSlice";
 
+// navbar, sort of
 function Header() {
   const { user } = useSelector((state) => state.auth);
   const dispatch = useDispatch();

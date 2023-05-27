@@ -5,6 +5,7 @@ import { reset, login } from "../features/auth/authSlice";
 import toast from "react-hot-toast";
 import Spinner from "../components/Spinner";
 
+// login page
 function Login() {
   const dispatch = useDispatch();
   const navigate = useNavigate();

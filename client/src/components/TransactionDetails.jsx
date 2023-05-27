@@ -2,6 +2,7 @@ import { deleteTransaction } from "../features/groups/currentGroupSlice";
 import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
 
+// when a transaction is clicked, this component will show
 function TransactionDetails({ transaction, closeModal, currency }) {
   const { id } = useParams();
   const dispatch = useDispatch();
@@ -19,7 +20,7 @@ function TransactionDetails({ transaction, closeModal, currency }) {
       <p>
         Amount:{" "}
         <b>
-          {new Intl.NumberFormat(currency === "LBP" ? "de-DE": "en-US", {
+          {new Intl.NumberFormat(currency === "LBP" ? "de-DE" : "en-US", {
             style: "currency",
             currency,
           }).format(Math.abs(transaction.amount))}

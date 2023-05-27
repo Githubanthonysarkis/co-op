@@ -4,6 +4,7 @@ import { addTransaction } from "../features/groups/currentGroupSlice";
 import { useParams } from "react-router-dom";
 import Spinner from "./Spinner";
 
+// form to create new transaction within a group
 function TransactionForm({ closeModal }) {
   const [formData, setFormData] = useState({
     name: "",

@@ -6,8 +6,9 @@ function Group({ name, members, role, wallet, currency }) {
         <span>Members: {members}</span>
         <span>Role: {role}</span>
         <span>
+          {/* Convert number to currency format */}
           Wallet:{" "}
-          {new Intl.NumberFormat(currency === "LBP" ? "de-DE": "en-US", {
+          {new Intl.NumberFormat(currency === "LBP" ? "de-DE" : "en-US", {
             style: "currency",
             currency,
           }).format(wallet)}
