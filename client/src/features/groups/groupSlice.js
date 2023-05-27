@@ -11,6 +11,7 @@ const initialState = {
 
 export const getGroups = createAsyncThunk("groups/get", async (_, thunkAPI) => {
   try {
+    // get the token from api, and send it with every request to /groups
     const token = thunkAPI.getState().auth.user?.token;
     if (token) {
       return await getGroupsHTTP(token);

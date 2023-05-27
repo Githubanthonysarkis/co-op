@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import TransactionDetails from "./TransactionDetails";
 
+// list of all transactions in the group
 function TransactionsList({ transactions, currency }) {
   const [transaction, setTransaction] = useState({});
   const modal = useRef();

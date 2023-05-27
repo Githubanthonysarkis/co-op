@@ -3,6 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { createGroup } from "../features/groups/groupSlice";
 import Spinner from "./Spinner";
 
+// This is the form that enables the user to create a new group
+// dialog is created in parent component, closeModal() needs to be passed down
 function GroupForm({ closeModal }) {
   const [name, setName] = useState("");
   const [currency, setCurrency] = useState("LBP");

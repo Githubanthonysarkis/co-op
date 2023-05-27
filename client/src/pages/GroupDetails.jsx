@@ -15,6 +15,7 @@ import { FaInfoCircle, FaUserMinus, FaUserPlus } from "react-icons/fa";
 import TransactionForm from "../components/TransactionForm";
 import TransactionsList from "../components/TransactionsList";
 
+// this is the single group page
 function GroupDetails() {
   const [show, setShow] = useState(false);
   const [formData, setFormData] = useState({
