@@ -6,7 +6,7 @@ import Spinner from "./Spinner";
 // This is the form that enables the user to create a new group
 // dialog is created in parent component, closeModal() needs to be passed down
 function GroupForm({ closeModal }) {
-  const [name, setName] = useState("");
+  const [name, setName] = useState(""); // name of the group
   const [currency, setCurrency] = useState("LBP");
 
   const { isLoading } = useSelector((state) => state.groups);

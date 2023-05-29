@@ -20,6 +20,7 @@ function TransactionDetails({ transaction, closeModal, currency }) {
       <p>
         Amount:{" "}
         <b>
+          {/* Convert number to currency format */}
           {new Intl.NumberFormat(currency === "LBP" ? "de-DE" : "en-US", {
             style: "currency",
             currency,

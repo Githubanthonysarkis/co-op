@@ -3,8 +3,8 @@ import TransactionDetails from "./TransactionDetails";
 
 // list of all transactions in the group
 function TransactionsList({ transactions, currency }) {
-  const [transaction, setTransaction] = useState({});
-  const modal = useRef();
+  const [transaction, setTransaction] = useState({}); // to show details of selected transaction
+  const modal = useRef(); // dialog
   const handleClick = (transaction) => {
     setTransaction(transaction);
     modal.current.showModal();

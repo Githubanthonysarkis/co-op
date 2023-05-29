@@ -1,4 +1,5 @@
-const errorHandler = (err, req, res, next) => {
+const errorHandler = (err, _req, res, _next) => {
+  // to better display error message
   const statusCode = res.statusCode || 500;
   res.status(statusCode);
   res.json({

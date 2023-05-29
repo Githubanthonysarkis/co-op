@@ -17,20 +17,20 @@ import TransactionsList from "../components/TransactionsList";
 
 // this is the single group page
 function GroupDetails() {
-  const [show, setShow] = useState(false);
+  const [show, setShow] = useState(false); // for mobile, show admin panel or not
   const [formData, setFormData] = useState({
     username: "",
-  });
-  const info = useRef();
-  const modal = useRef();
+  }); // add user form
+  const info = useRef(); // for mobile, admin panel
+  const modal = useRef(); // dialog
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
   const { group, isLoading, isError, message, transactions } = useSelector(
     (state) => state.currentGroup
-  );
-  const { id } = useParams();
+  ); // from redux store
+  const { id } = useParams(); // from url
 
   useEffect(() => {
     if (!user) {
