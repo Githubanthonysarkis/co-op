@@ -9,11 +9,11 @@ function TransactionForm({ closeModal }) {
   const [formData, setFormData] = useState({
     name: "",
     amount: "",
-  });
+  }); // new transaction form
 
   const { id } = useParams();
 
-  const { isLoading } = useSelector((state) => state.currentGroup);
+  const { isLoading } = useSelector((state) => state.currentGroup); // get loading state from redux store
 
   const dispatch = useDispatch();
 

@@ -5,7 +5,7 @@ import { logout } from "../features/auth/authSlice";
 
 // navbar, sort of
 function Header() {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth); // get user from redux store
   const dispatch = useDispatch();
 
   return (

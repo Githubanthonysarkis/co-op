@@ -12,15 +12,16 @@ function Groups() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const modal = useRef();
+  const modal = useRef(); // dialog
 
   const { user } = useSelector((state) => state.auth);
   const { groups, isLoading, isSuccess, isError, message } = useSelector(
     (store) => store.groups
-  );
+  ); // from redux store
 
   useEffect(() => {
     if (isError) {
+      // not necessary anymore but keep for good measures
       message !== "Cannot read properties of null (reading 'token')" &&
         toast.error(message);
     }

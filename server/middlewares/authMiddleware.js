@@ -12,7 +12,7 @@ const protect = asyncHandler(async (req, res, next) => {
       const user = await User.findById(decoded.id);
 
       if (user) {
-        // Save the user and send it with every request
+        // Save the user and send it with EVERY request
         req.user = user;
         next();
       } else {

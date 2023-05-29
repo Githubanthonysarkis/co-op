@@ -4,6 +4,8 @@ const bcrypt = require("bcrypt");
 const asyncHandler = require("express-async-handler");
 
 function handleErrors(err) {
+  // different error messages for username, email & password
+  // get error messages from db
   const errors = {
     username: "",
     email: "",
@@ -25,12 +27,14 @@ function handleErrors(err) {
 }
 
 function generateToken(id) {
+  // generate jsonwebtoken
   return jwt.sign({ id }, process.env.JWT_SECRET);
 }
 
 // Register users
 
 const registerUser = async (req, res) => {
+  // get credentials from request body
   const { username, email, password } = req.body;
 
   try {
@@ -39,6 +43,7 @@ const registerUser = async (req, res) => {
       email,
       password,
     });
+    // return user to frontend to store it
     if (user) {
       res.status(201).json({
         _id: user._id,
